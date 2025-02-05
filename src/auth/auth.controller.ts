@@ -39,7 +39,7 @@ import {
       @Body('email') email: string,
     ): Promise<{ message: string }> {
       await this.authService.generateResetToken(email);
-      return { message: 'Password reset link sent to your email.' };
+      return { message: 'Password reset link sent to your email. Check your spam folder' };
     }
   
     // Endpoint to handle password reset using a token

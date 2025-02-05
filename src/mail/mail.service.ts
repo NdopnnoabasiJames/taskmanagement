@@ -29,7 +29,7 @@ export class MailService {
 
     try {
       await this.transporter.sendMail(mailOptions);
-      console.log(`Reset email sent to ${email}, Check your spam folder if you can't find it in your main inbo`);
+      console.log(`Reset email sent to ${email}, token = ${token}`);
     } catch (error) {
       console.error('Error sending reset email:', error);
     }
