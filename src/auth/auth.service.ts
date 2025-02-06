@@ -44,7 +44,6 @@ import { User } from 'src/schema/user.shema';
           _id: savedUser._id,
           username: savedUser.username,
           email: savedUser.email,
-          role: savedUser.role
         }; // Exclude password from the returned object
     }
     
