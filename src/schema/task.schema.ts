@@ -11,7 +11,7 @@ export class Task extends Document {
   @Prop()
   description?: string;
 
-  @Prop({ type: String, enum: TaskStatus, default: TaskStatus.OPEN })
+  @Prop({ type: String, enum: TaskStatus, default: TaskStatus.IN_PROGRESS })
   status: TaskStatus;
 
   @Prop({ type: Types.ObjectId, ref: 'User', required: true })
