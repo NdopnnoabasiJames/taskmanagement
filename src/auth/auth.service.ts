@@ -87,7 +87,7 @@ import { User } from 'src/schema/user.shema';
   
     //Logic to reset password
     async resetPassword(token: string, newPassword: string): Promise<void> {
-      if (!token && !newPassword) {
+      if (!token || !newPassword) {
         throw new BadRequestException('Token or password not provided');
       }
       // Find user by token and ensure it's not expired
