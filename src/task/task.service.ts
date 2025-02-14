@@ -24,6 +24,9 @@ export class TaskService {
 
   //Logic to delete task
   async deleteTask(userId: string, taskId: string) {
+    if(!isValidObjectId(taskId)){
+      throw new BadRequestException('Invalid task id');
+    }
     const task = await this.taskModel.findById(taskId);
 
     if (!task) throw new NotFoundException('Task not found');
