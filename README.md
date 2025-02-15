@@ -92,7 +92,3 @@ The API is deployed on **Render**. You can access it here:
 - Author - [Ndopnnoabasi James](https://www.linkedin.com/in/ndopnnoabasi "Author on LinkedIn")
 - GitHub - [Ndopnnoabasi James](https://github.com/NdopnnoabasiJames "Author on Github")
 - Email - [Send mail](ndopnnoabasijames@gmail.com "Send Email")
-
-## License
-
-This project is open-source and available under the [MIT License]().
