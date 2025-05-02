@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { MailModule } from '../mail/mail.module';
 import { PassportModule } from '@nestjs/passport';
-import { User, UserSchema } from 'src/schema/user.shema';
+import { User, UserSchema } from 'src/schema/user.schema';
 
 @Module({
   imports: [

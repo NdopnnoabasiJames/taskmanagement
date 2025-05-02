@@ -11,7 +11,7 @@ import {
   import * as crypto from 'crypto';
   import * as bcrypt from 'bcrypt';
   import { MailService } from '../mail/mail.service';
-import { User } from 'src/schema/user.shema';
+import { User } from 'src/schema/user.schema';
 
   
   
