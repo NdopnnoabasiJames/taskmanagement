@@ -6,9 +6,9 @@ import {
     InternalServerErrorException,
     Param,
   } from '@nestjs/common';
-  import { AuthService } from './auth.service';
-  import { CreateUserDto } from '../Dtos/SignUp.dto';
-  import { LoginUserDto } from '../Dtos/Login.dto';
+import { AuthService } from './auth.service';
+import { CreateUserDto } from '../Dtos/SignUp.dto';
+import { LoginDto } from '../Dtos/Login.dto'; // Corrected the import to use 'LoginDto'
   
   @Controller('auth')
   export class AuthController {
@@ -28,7 +28,7 @@ import {
     }
   
     @Post('login')
-    async login(@Body() loginUserDto: LoginUserDto) {
+    async login(@Body() loginUserDto: LoginDto) {
       return this.authService.logIn(loginUserDto);
     }
   
@@ -53,4 +53,3 @@ import {
       return { message: 'Password has been successfully reset.' };
     }
   }
-  

@@ -1,20 +1,8 @@
-import { IsString, IsNotEmpty, IsEmail, IsOptional, IsIn, Length } from 'class-validator';
+import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { BaseUserDto } from './base-user.dto';
 
-export class CreateUserDto {
-  @IsString({message:"Username must be a string"})
+export class CreateUserDto extends BaseUserDto {
   @IsNotEmpty()
-  @Length(3, 15, {message:"Username must be in a range of 3 to 15 characters"})
-  username: string;
-
-  @IsEmail({},{message:"Please enter a valid email address"})
-  email: string;
-
-  @IsString()
-  @Length(3, 15, {message:"Password must be in a range of 3 to 15 characters"})
+  @MinLength(6)
   password: string;
-
-  @IsOptional()
-  @IsIn(['admin', 'member'])
-  role: string;
-
 }

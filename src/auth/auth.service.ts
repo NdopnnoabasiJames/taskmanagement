@@ -3,14 +3,14 @@ import {
     Injectable,
     UnauthorizedException,
   } from '@nestjs/common';
-  import { JwtService } from '@nestjs/jwt';
-  import { InjectModel } from '@nestjs/mongoose';
-  import { Model } from 'mongoose';
-  import { CreateUserDto } from '../Dtos/SignUp.dto';
-  import { LoginUserDto } from '../Dtos/Login.dto';
-  import * as crypto from 'crypto';
-  import * as bcrypt from 'bcrypt';
-  import { MailService } from '../mail/mail.service';
+import { JwtService } from '@nestjs/jwt';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { CreateUserDto } from '../Dtos/SignUp.dto';
+import { LoginDto } from '../Dtos/Login.dto'; // Corrected the import to use 'LoginDto'
+import * as crypto from 'crypto';
+import * as bcrypt from 'bcrypt';
+import { MailService } from '../mail/mail.service';
 import { User } from 'src/schema/user.schema';
 
   
@@ -47,7 +47,7 @@ import { User } from 'src/schema/user.schema';
         }; // Exclude password from the returned object
     }
     
-    async logIn(loginUserDto: LoginUserDto) {
+    async logIn(loginUserDto: LoginDto) { // Corrected 'LoginUserDto' to 'LoginDto'
       const { email, password } = loginUserDto; // Destructure email and password from DTO
       const user = await this.userModel.findOne({ email });
       if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -113,4 +113,3 @@ import { User } from 'src/schema/user.schema';
     }
     
   }
-  
