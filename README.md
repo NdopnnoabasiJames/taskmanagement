@@ -1,9 +1,24 @@
 # Task Manager API
 
+## Table of Contents
+
+- [Project Overview](#project-overview)
+- [Project Setup](#project-setup)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+- [Authentication Routes](#authentication-routes)
+- [Task Routes](#task-routes)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [API Documentation](#api-documentation)
+- [Deployment](#deployment)
+- [Testing Instructions](#testing-instructions)
+- [Contributing](#contributing)
+- [Stay in Touch](#stay-in-touch)
+
 ## Project Overview
 
-The **Task Manager API** is a backend service built using **NestJS** that allows users to manage their tasks. It provides features such as user authentication, task creation, updating, deletion, and retrieval[
-](https://github.com/nestjs/nest)
+The **Task Manager API** is a backend service built using **NestJS** that allows users to manage their tasks. It provides features such as user authentication, task creation, updating, deletion, and retrieval[ ](https://github.com/nestjs/nest)
 
 ## Project setup
 
@@ -86,6 +101,27 @@ The full API documentation is available on Postman:
 
 The API is deployed on **Render**. You can access it here:
 [Task Manager API](https://taskmanager-cwnq.onrender.com "Task Manager")
+
+### Testing Instructions
+
+To run tests, use the following command:
+
+```bash
+npm run test
+```
+
+Ensure that your test database is configured in the `.env` file.
+
+### Contributing
+
+We welcome contributions! To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Commit your changes and push the branch.
+4. Submit a pull request.
+
+Please ensure your code follows the project's coding standards and includes tests for new features.
 
 ## Stay in touch
 
