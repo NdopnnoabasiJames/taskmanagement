@@ -17,12 +17,10 @@ import { AuthGuard } from '../guards/auth.guard';
 import { TaskStatus } from '../enums/taskStatus.enum';
 import { Task } from 'src/schema/task.schema';
 
-
 @Controller('tasks')
 @UseGuards(AuthGuard)
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
-
 
   //Route to create a new task
   @Post('createTask')
@@ -30,7 +28,7 @@ export class TaskController {
     if (!req.user || !req.user.id) {
       throw new UnauthorizedException('User is not authenticated');
     }
-    const userId = req.user.id; // Extract userId from the JWT payload
+    const userId = req.user.id;
 
     return this.taskService.createTask(userId, createTaskDto);
   }
@@ -61,9 +59,9 @@ export class TaskController {
   @Get('GetTaskByStatus')
   async getTasksByStatus(
     @Query('status') status: TaskStatus,
-    @Req() req: { user: { id: string } }, // Replaced 'any' with a specific type for the request object
+    @Req() req: { user: { id: string } },
   ): Promise<Task[]> {
-    const userId = req.user.id; // Corrected the property name to 'id'
+    const userId = req.user.id;
     return this.taskService.getTasksByStatus(userId, status);
   }
 }

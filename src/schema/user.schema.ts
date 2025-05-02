@@ -17,10 +17,10 @@ export class User extends Document {
   role: UserRole;
 
   @Prop()
-  resetPasswordToken?: string; // Token for password reset
+  resetPasswordToken?: string; 
 
   @Prop()
-  resetPasswordExpires?: Date; // Token expiration time
+  resetPasswordExpires?: Date; 
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

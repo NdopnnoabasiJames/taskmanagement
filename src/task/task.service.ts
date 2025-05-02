@@ -1,4 +1,9 @@
-import { Query, Injectable, NotFoundException, UnauthorizedException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreateTaskDto } from '../Dtos/task.dto';
@@ -7,43 +12,54 @@ import { Task } from '../schema/task.schema';
 
 @Injectable()
 export class TaskService {
-  constructor(@InjectModel(Task.name) private readonly taskModel: Model<Task>) {}
+  constructor(
+    @InjectModel(Task.name) private readonly taskModel: Model<Task>,
+  ) {}
 
   //Logic to create new task for a user.
-  async createTask(userId: string, createTaskDto: CreateTaskDto): Promise<Task> {
+  async createTask(
+    userId: string,
+    createTaskDto: CreateTaskDto,
+  ): Promise<Task> {
     const newTask = new this.taskModel({ ...createTaskDto, user: userId });
     return await newTask.save();
   }
-  
+
   //Logic to get all user tasks
   async getTasks(userId: string): Promise<Task[]> {
-    const userTasks = await this.taskModel.find({ user: userId }).populate('user', '_id').exec();
-    if (userTasks.length === 0) throw new NotFoundException('User has no tasks');
+    const userTasks = await this.taskModel
+      .find({ user: userId })
+      .populate('user', '_id')
+      .exec();
+    if (userTasks.length === 0)
+      throw new NotFoundException('User has no tasks');
     return userTasks;
   }
 
   //Logic to delete task
   async deleteTask(userId: string, taskId: string) {
-    if(!isValidObjectId(taskId)){
+    if (!isValidObjectId(taskId)) {
       throw new BadRequestException('Invalid task id');
     }
     const task = await this.taskModel.findById(taskId);
 
     if (!task) throw new NotFoundException('Task not found');
-    if (task.user.toString() !== userId) throw new UnauthorizedException('Task does not belong to this user therefore not authorized to delete this task.');
+    if (task.user.toString() !== userId)
+      throw new UnauthorizedException(
+        'Task does not belong to this user therefore not authorized to delete this task.',
+      );
 
     await this.taskModel.findByIdAndDelete(taskId);
     return { message: 'Task deleted successfully' };
-
   }
-
 
   //Logic to update task Status
   async updateTaskStatus(taskId: string, status: TaskStatus): Promise<Task> {
-    if (!isValidObjectId(taskId)) throw new NotFoundException('Task with this id not found');
+    if (!isValidObjectId(taskId))
+      throw new NotFoundException('Task with this id not found');
     if (!Object.values(TaskStatus).includes(status)) {
       throw new BadRequestException(`Invalid status value: ${status}`);
-    } 
+    }
 
     const task = await this.taskModel.findById(taskId);
 
@@ -55,14 +71,12 @@ export class TaskService {
 
   //Logic to get tasks by status
   async getTasksByStatus(userId: string, status?: TaskStatus): Promise<Task[]> {
-    const query: { user: string; status?: TaskStatus } = { user: userId }; // Added optional 'status' property to the query object
+    const query: { user: string; status?: TaskStatus } = { user: userId };
 
     if (status) {
       query.status = status;
     }
 
-    return this.taskModel.find(query).exec();
+    return this.taskModel.find(query).populate('user', '_id').exec();
   }
-  
-
 }
