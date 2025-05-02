@@ -1,9 +1,21 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Security Enhancements
+  app.use(helmet()); // Adds secure HTTP headers
+  app.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // Limit each IP to 100 requests per windowMs
+    })
+  );
+
   app.useGlobalPipes(new ValidationPipe({
   whitelist: true, // Allow only specified properties in the request body
     transform: true, // Automatically transform request body properties to their corresponding types
