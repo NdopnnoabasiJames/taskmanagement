@@ -28,6 +28,8 @@ async function bootstrap() {
     credentials: true, // Allow cookies and authentication headers if needed
   });
   const port = process.env.PORT
-  await app.listen(port,()=>console.log(`Server running successfully on Port ${port}`));
+  await app.listen(port, () => {
+    console.info(`Server running successfully on Port ${port}`);
+  }); // Replaced console.log with console.info for better logging practices
 }
 bootstrap();

@@ -11,8 +11,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
-    // Ensure the payload contains id and role fields
-    return { userId: payload.id, role: payload.role }; // Attach id and role to request.user
+  async validate(payload: { sub: string; email: string; role: string }) { // Added 'role' property to the payload type
+    return { userId: payload.sub, role: payload.role }; // Corrected 'id' to 'sub'
   }
 }

@@ -61,9 +61,9 @@ export class TaskController {
   @Get('GetTaskByStatus')
   async getTasksByStatus(
     @Query('status') status: TaskStatus,
-    @Req() req: any, // Extract userId from the request
+    @Req() req: { user: { id: string } }, // Replaced 'any' with a specific type for the request object
   ): Promise<Task[]> {
-    const userId = req.user.userId; // Assume userId is extracted from the JWT
+    const userId = req.user.id; // Corrected the property name to 'id'
     return this.taskService.getTasksByStatus(userId, status);
   }
 }

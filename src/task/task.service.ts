@@ -55,7 +55,7 @@ export class TaskService {
 
   //Logic to get tasks by status
   async getTasksByStatus(userId: string, status?: TaskStatus): Promise<Task[]> {
-    const query: any = { user: userId };
+    const query: { user: string; status?: TaskStatus } = { user: userId }; // Added optional 'status' property to the query object
 
     if (status) {
       query.status = status;
