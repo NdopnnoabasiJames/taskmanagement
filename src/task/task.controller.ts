@@ -35,9 +35,13 @@ export class TaskController {
 
   //Route to get all user tasks
   @Get('getUserTasks')
-  async getTasks(@Req() req) {
+  async getTasks(
+    @Req() req,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
+  ) {
     const userId = req.user.id;
-    return this.taskService.getTasks(userId);
+    return this.taskService.getTasks(userId, page, limit);
   }
 
   // Route to delete a task by id
@@ -59,9 +63,11 @@ export class TaskController {
   @Get('GetTaskByStatus')
   async getTasksByStatus(
     @Query('status') status: TaskStatus,
+    @Query('page') page: number = 1,
+    @Query('limit') limit: number = 10,
     @Req() req: { user: { id: string } },
   ): Promise<Task[]> {
     const userId = req.user.id;
-    return this.taskService.getTasksByStatus(userId, status);
+    return this.taskService.getTasksByStatus(userId, status, page, limit);
   }
 }

@@ -26,13 +26,16 @@ export class TaskService {
   }
 
   //Logic to get all user tasks
-  async getTasks(userId: string): Promise<Task[]> {
+  async getTasks(userId: string, page: number = 1, limit: number = 10): Promise<Task[]> {
+    const skip = (page - 1) * limit;
     const userTasks = await this.taskModel
       .find({ user: userId })
+      .skip(skip)
+      .limit(limit)
       .populate('user', '_id')
       .exec();
-    if (userTasks.length === 0)
-      throw new NotFoundException('User has no tasks');
+
+    if (userTasks.length === 0) throw new NotFoundException('User has no tasks');
     return userTasks;
   }
 
@@ -70,13 +73,18 @@ export class TaskService {
   }
 
   //Logic to get tasks by status
-  async getTasksByStatus(userId: string, status?: TaskStatus): Promise<Task[]> {
+  async getTasksByStatus(userId: string, status?: TaskStatus, page: number = 1, limit: number = 10): Promise<Task[]> {
+    const skip = (page - 1) * limit;
     const query: { user: string; status?: TaskStatus } = { user: userId };
 
     if (status) {
       query.status = status;
     }
 
-    return this.taskModel.find(query).populate('user', '_id').exec();
+    return this.taskModel
+      .find(query)
+      .skip(skip)
+      .limit(limit)
+      .exec();
   }
 }
