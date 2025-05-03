@@ -4,6 +4,8 @@ import { AuthModule } from './auth/auth.module';
 import { TaskModule } from './task/task.module';
 import { MailModule } from './mail/mail.module';
 import { DatabaseModule } from './database/database.module';
+import { APP_FILTER } from '@nestjs/core';
+import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 
 @Module({
   imports: [
@@ -16,7 +18,12 @@ import { DatabaseModule } from './database/database.module';
     MailModule
   ],
 
-    providers: [],
-    exports: []
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: AllExceptionsFilter,
+    },
+  ],
+  exports: []
 })
 export class AppModule {} // Module
