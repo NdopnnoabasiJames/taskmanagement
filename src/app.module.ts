@@ -6,6 +6,7 @@ import { MailModule } from './mail/mail.module';
 import { DatabaseModule } from './database/database.module';
 import { APP_FILTER } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -15,7 +16,15 @@ import { AllExceptionsFilter } from './filters/all-exceptions.filter';
     DatabaseModule,
     AuthModule,
     TaskModule,
-    MailModule
+    MailModule,
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 10,
+        },
+      ],
+    }),
   ],
 
   providers: [
